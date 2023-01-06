@@ -29,7 +29,6 @@ spec:
         path: inputs/boundary
         required: true
 
-    dataslots:
       - name: 5km DTM Information
         description:
           These are metadata files stored in the DAFNI database. Using the OS grid, these folders contain
@@ -38,8 +37,17 @@ spec:
         default:
           - f07f4bcc-04be-4507-bae7-874345c9e944
           - a8416c7a-bfc1-4b9e-977a-a2f74e00b04e
-        path: inputs/grids
+        path: inputs/rasters
         required: false
+        
+      - name: Grid Information
+        description:
+          There are OS_bng grids for various cell sizes. Choose the one most applicable (in this case 5km grid cells fits the data type).
+        default:
+          - f07f4bcc-04be-4507-bae7-874345c9e944
+          - a8416c7a-bfc1-4b9e-977a-a2f74e00b04e
+        path: inputs/grids
+        required: false        
    
   outputs:
     datasets:

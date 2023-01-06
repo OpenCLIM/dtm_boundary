@@ -1,0 +1,48 @@
+kind: M
+api_version: v1beta2
+metadata:
+  display_name: DTM Boundary
+  name: dtm-raster
+  publisher: Newcastle University
+  summary: >
+    Creates the DTM file for the chosen city.
+  source_code: https://github.com/OpenCLIM/max-depth-tiff
+  description: >
+    This model takes the shapefile of the chosen city, collates all of the DTM rasters that fall within
+    the city bounds and merges them to create the DTM raster for the city.
+spec:
+  inputs:
+    parameters:
+      - name: TITLE
+        title: Title
+        type: string
+        description: The title given to the output dataset
+        default: City_DTM
+        required: true
+        
+    dataslots:
+      - name: Boundary
+        description:
+          This file should be in gpkg or shp format and should define the city bounds.
+        default:
+          - 09a6bbc0-8d2c-4e1b-a0d2-7f11833f20ea
+        path: inputs
+        required: true
+
+    dataslots:
+      - name: 5km DTM Information
+        description:
+          These are metadata files stored in the DAFNI database. Using the OS grid, these folders contain
+          5km squared grid cells containing rasters of the DTM for each area. ALl of the folders are zipped
+          and only the relevent datasets will be unzipped.
+        default:
+          - f07f4bcc-04be-4507-bae7-874345c9e944
+          - a8416c7a-bfc1-4b9e-977a-a2f74e00b04e
+        path: inputs
+        required: false
+   
+  outputs:
+    datasets:
+      - name: outputs/data/
+        type: folder
+        description: path to model outputs

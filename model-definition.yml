@@ -42,7 +42,7 @@ spec:
         path: inputs/rasters
         required: true
 
-        - name: OS Grid Selection
+      - name: OS Grid Selection
         description:
           A single geopackage containing each OS British National 5km Grid cell. 
           The coordinate reference system is British National Grid (ESPG:27700)

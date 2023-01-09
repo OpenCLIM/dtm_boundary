@@ -1,0 +1,32 @@
+name: Upload to DAFNI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: Upload to DAFNI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Docker Build
+        run: docker build -t dtm_raster .
+
+      - name: Compress docker image
+        run: docker save dtm_raster | gzip > dtm_raster.tar.gz
+
+      - name: Set tag as env
+        run: echo "TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - name: Upload to DAFNI
+        uses: dafnifacility/dafni-model-uploader@v1.9
+        with:
+          definition-path: './model-definition.yml'
+          image-path: './dtm_raster.tar.gz'
+          username: ${{ secrets.DAFNI_SERVICE_ACCOUNT_USERNAME }}
+          password: ${{ secrets.DAFNI_SERVICE_ACCOUNT_PASSWORD }}
+          version-message: ${{ env.TAG }}
+          parent-model: "38394654-aa51-4664-8d2c-43f3a95332ac"

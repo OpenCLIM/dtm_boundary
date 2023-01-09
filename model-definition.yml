@@ -6,7 +6,7 @@ metadata:
   publisher: Newcastle University
   summary: >
     Creates the DTM file for the chosen city.
-  source_code: https://github.com/OpenCLIM/max-depth-tiff
+  source_code: https://github.com/OpenCLIM/dtm_boundary
   description: >
     This model takes the shapefile of the chosen city, collates all of the DTM rasters that fall within
     the city bounds and merges them to create the DTM raster for the city.
@@ -34,20 +34,22 @@ spec:
           These are metadata files stored in the DAFNI database. Using the OS grid, these folders contain
           5km squared grid cells containing rasters of the DTM for each area. ALl of the folders are zipped
           and only the relevent datasets will be unzipped.
+          A single geopackage containing each OS British National 5km Grid cell. 
+          The coordinate reference system is British National Grid (ESPG:27700)
         default:
           - f07f4bcc-04be-4507-bae7-874345c9e944
           - a8416c7a-bfc1-4b9e-977a-a2f74e00b04e
         path: inputs/rasters
-        required: false
-        
-      - name: Grid Information
+        required: true
+
+        - name: OS Grid Selection
         description:
-          There are OS_bng grids for various cell sizes. Choose the one most applicable (in this case 5km grid cells fits the data type).
+          A single geopackage containing each OS British National 5km Grid cell. 
+          The coordinate reference system is British National Grid (ESPG:27700)
         default:
-          - f07f4bcc-04be-4507-bae7-874345c9e944
-          - a8416c7a-bfc1-4b9e-977a-a2f74e00b04e
+          - 7358511d-76ec-484b-8996-66af6e6ea8de
         path: inputs/grids
-        required: false        
+        required: true
    
   outputs:
     datasets:

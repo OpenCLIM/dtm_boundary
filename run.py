@@ -1,16 +1,10 @@
 import geopandas as gpd
 import pandas as pd
 import os
-import shutil
 from zipfile import ZipFile
-from rasterio.plot import show
 from rasterio.merge import merge
 import rasterio as rio
-from pathlib import Path
 from glob import glob
-from os.path import isfile, join, isdir
-import fiona
-import rasterio
 import rasterio.mask
 
 # Define Data Paths
@@ -115,23 +109,3 @@ with rio.open(raster_output, 'w', **output_meta) as m:
 # This should then be read into the clip tool to adjust it back to the desired area
 # If not this code can be used but it needs some work to sort out the edges
 boundary = glob(boundary_path + "/*.*", recursive = True)
-
-# Read Shape file
-# with fiona.open(boundary[0], "r") as shapefile:
-#     shapes = [feature["geometry"] for feature in shapefile]
-
-# # read imagery file
-# with rasterio.open(raster_output) as src:
-#     out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
-#     out_meta = src.meta
-
-# # Save clipped imagery
-# out_meta.update({"driver": "GTiff",
-#                  "height": out_image.shape[1],
-#                  "width": out_image.shape[2],
-#                  "transform": out_transform})
-
-# raster_output_clip = os.path.join(outputs_path,'boundary_clipped.asc')
-
-# with rasterio.open(raster_output_clip, "w", **out_meta) as dest:
-#     dest.write(out_image)

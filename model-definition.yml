@@ -39,6 +39,7 @@ spec:
         default:
           - f07f4bcc-04be-4507-bae7-874345c9e944
           - a8416c7a-bfc1-4b9e-977a-a2f74e00b04e
+          - 1b99c45a-9951-4f54-abd7-90f1b94f9319
         path: inputs/rasters
         required: true
 

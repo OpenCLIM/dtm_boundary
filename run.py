@@ -16,8 +16,12 @@ outputs_path = os.path.join(data_path, 'outputs')
 outputs_path_ = data_path + '/' + 'outputs'
 if not os.path.exists(outputs_path):
     os.mkdir(outputs_path_)
+dem_path = os.path.join(outputs_path, 'dem')
+dem_path_ = outputs_path + '/' + 'dem'
+if not os.path.exists(dem_path):
+    os.mkdir(dem_path_)
 raster_path = os.path.join(inputs_path, 'rasters')
-raster_output = os.path.join(outputs_path, 'boundary.asc')
+raster_output = os.path.join(dem_path, 'boundary.asc')
 raster_output_clip = os.path.join(outputs_path,'boundary_clipped.asc')
 
 # Identify input polygons and shapes (boundary of city, and OS grid cell references)

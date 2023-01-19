@@ -36,8 +36,6 @@ spec:
           These are metadata files stored in the DAFNI database. Using the OS grid, these folders contain
           5km squared grid cells containing rasters of the DTM for each area. ALl of the folders are zipped
           and only the relevent datasets will be unzipped.
-          A single geopackage containing each OS British National 5km Grid cell. 
-          The coordinate reference system is British National Grid (ESPG:27700)
         default:
           - f07f4bcc-04be-4507-bae7-874345c9e944
           - a8416c7a-bfc1-4b9e-977a-a2f74e00b04e

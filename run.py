@@ -1,6 +1,7 @@
 import geopandas as gpd
 import pandas as pd
 import os
+import subprocess
 from zipfile import ZipFile
 from rasterio.merge import merge
 import rasterio as rio
@@ -21,12 +22,19 @@ dem_path_ = outputs_path + '/' + 'dem'
 if not os.path.exists(dem_path):
     os.mkdir(dem_path_)
 raster_path = os.path.join(inputs_path, 'rasters')
-raster_output = os.path.join(dem_path, 'boundary.asc')
-raster_output_clip = os.path.join(outputs_path,'boundary_clipped.asc')
 
 # Identify input polygons and shapes (boundary of city, and OS grid cell references)
-boundary = glob(boundary_path + "/*.*", recursive = True)
-boundary = gpd.read_file(boundary[0])
+boundary_1 = glob(boundary_path + "/*.*", recursive = True)
+boundary = gpd.read_file(boundary_1[0])
+
+# Identify the name of the boundary file for the city name
+file_path = os.path.splitext(boundary_1[0])
+filename=file_path[0].split("\\")
+
+raster_output = os.path.join(dem_path, filename[-1] +'.asc')
+raster_output_clip = os.path.join(dem_path,filename[-1] +'.tif')
+raster_output_image = os.path.join(dem_path,filename[-1] +'.asc')
+
 grid = glob(grids_path + "/*_5km.gpkg", recursive = True)
 grid = gpd.read_file(grid[0])
 
@@ -106,10 +114,18 @@ output_meta.update(
     }
 )
 
-# Write to file
-with rio.open(raster_output, 'w', **output_meta) as m:
-    m.write(mosaic)
+# Make a note of the directories
+print('Clip_file:',boundary_1[0])
+print('Input_file:',raster_output)
+print('Output_file:', raster_output_clip)
 
-# This should then be read into the clip tool to adjust it back to the desired area
-# If not this code can be used but it needs some work to sort out the edges
-boundary = glob(boundary_path + "/*.*", recursive = True)
+# Crop the raster to the polygon shapefile
+command_output = subprocess.run(["gdalwarp", "-cutline", boundary_1[0], "-crop_to_cutline", raster_output,
+                     raster_output_clip])
+
+# Convert tif to an asc (for CityCat input)
+subprocess.run(['gdal_translate', '-of', 'GTiff', raster_output_clip, raster_output_image])
+
+# Remove unclipped file
+# os.remove(raster_output)
+# os.remove(raster_output_clip)

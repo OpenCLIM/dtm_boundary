@@ -29,11 +29,15 @@ boundary = gpd.read_file(boundary_1[0])
 
 # Identify the name of the boundary file for the city name
 file_path = os.path.splitext(boundary_1[0])
-filename=file_path[0].split("\\")
+print('file_path:',file_path)
+filename=file_path[0].split("/")
+print('filename:',filename)
+location = filename[-1]
+print('Location:',location)
 
-raster_output = os.path.join(dem_path, filename[-1] +'.asc')
-raster_output_clip = os.path.join(dem_path,filename[-1] +'.tif')
-raster_output_image = os.path.join(dem_path,filename[-1] +'.asc')
+raster_output = os.path.join(dem_path, location +'.asc')
+raster_output_clip = os.path.join(dem_path,location +'.tif')
+raster_output_image = os.path.join(dem_path,location +'.asc')
 
 grid = glob(grids_path + "/*_5km.gpkg", recursive = True)
 grid = gpd.read_file(grid[0])

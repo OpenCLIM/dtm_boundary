@@ -118,6 +118,10 @@ output_meta.update(
     }
 )
 
+# Write to file
+with rio.open(raster_output, 'w', **output_meta) as m:
+    m.write(mosaic)
+
 # Make a note of the directories
 print('Clip_file:',boundary_1[0])
 print('Input_file:',raster_output)
@@ -132,4 +136,4 @@ subprocess.run(['gdal_translate', '-of', 'GTiff', raster_output_clip, raster_out
 
 # Remove unclipped file
 # os.remove(raster_output)
-# os.remove(raster_output_clip)
+os.remove(raster_output_clip)

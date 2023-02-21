@@ -1,11 +1,11 @@
-FROM continuumio/miniconda3:4.8.2
+FROM python:3.8
+RUN apt-get -y update
+RUN apt-get -y install libgdal-dev gdal-bin
+RUN pip install rasterio geopandas
 
 RUN mkdir src
 
 WORKDIR src
-
-COPY environment.yml .
-RUN conda env update -f environment.yml -n base
 
 COPY run.py .
 

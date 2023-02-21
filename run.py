@@ -25,6 +25,7 @@ raster_path = os.path.join(inputs_path, 'rasters')
 
 # Identify input polygons and shapes (boundary of city, and OS grid cell references)
 boundary_1 = glob(boundary_path + "/*.*", recursive = True)
+print('boundary_1:',boundary_1)
 boundary = gpd.read_file(boundary_1[0])
 
 # Identify the name of the boundary file for the city name
@@ -36,10 +37,14 @@ location = filename[-1]
 print('Location:',location)
 
 raster_output = os.path.join(dem_path, location +'.asc')
+print('raster_output:',raster_output)
 raster_output_clip = os.path.join(dem_path,location +'.tif')
+print('raster_output_clip:',raster_output_clip)
 raster_output_image = os.path.join(dem_path,location +'.asc')
+print('raster_output_image:',raster_output_image)
 
 grid = glob(grids_path + "/*_5km.gpkg", recursive = True)
+print('grid:', grid)
 grid = gpd.read_file(grid[0])
 
 # Ensure all of the polygons are defined by the same crs
@@ -121,6 +126,7 @@ output_meta.update(
 # Write to file
 with rio.open(raster_output, 'w', **output_meta) as m:
     m.write(mosaic)
+    print('Raster created')
 
 # Make a note of the directories
 print('Clip_file:',boundary_1[0])
@@ -137,3 +143,4 @@ subprocess.run(['gdal_translate', '-of', 'GTiff', raster_output_clip, raster_out
 # Remove unclipped file
 # os.remove(raster_output)
 os.remove(raster_output_clip)
+print('Pre-clipped file removed')

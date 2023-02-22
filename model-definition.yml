@@ -29,7 +29,7 @@ spec:
         default:
           - 09a6bbc0-8d2c-4e1b-a0d2-7f11833f20ea
         path: inputs/boundary
-        required: true
+        required: false
 
       - name: 5km DTM Information
         description:

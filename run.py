@@ -135,7 +135,7 @@ print('Output_file:', raster_output_clip)
 
 # Crop the raster to the polygon shapefile
 command_output = subprocess.run(["gdalwarp", "-cutline", boundary_1[0], "-crop_to_cutline", raster_output,
-                     raster_output_clip])
+                     raster_output_clip, '-dstnodata', '-9999'])
 
 # Convert tif to an asc (for CityCat input)
 subprocess.run(['gdal_translate', '-of', 'GTiff', raster_output_clip, raster_output_image])

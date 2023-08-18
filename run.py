@@ -65,7 +65,7 @@ a_length = len(list[0])
 cell='A'
 
 # Look at each 5km cell that falls in the area and examine the first two digits
-for i in range(0,len(list)-1):
+for i in range(0,len(list)):
     cell=list[i]
     check.cell_code[i] = cell[a_length - 6:a_length - 4]
 

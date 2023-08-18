@@ -60,7 +60,7 @@ list = cells_needed['tile_name']
 
 check=[]
 check=pd.DataFrame(check)
-check['cell_code']=['AAAAAA' for n in range(len(list)-1)]
+check['cell_code']=['AAAAAA' for n in range(len(list))]
 a_length = len(list[0])
 cell='A'
 
